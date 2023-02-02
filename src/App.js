@@ -1,113 +1,36 @@
 import React, { useState } from "react";
-import './App.css';
-
-const App =() => {
+import "./App.css";
+const divovi = [
+  { id: "div1", backgroundcolor: "red", hex: "#FF0000" },
+  { id: "div2", backgroundcolor: "blue", hex: "#0000FF" },
+  { id: "div3", backgroundcolor: "green", hex: "#00FF00" },
+  { id: "div4", backgroundcolor: "brown", hex: "#964B00" },
+  { id: "div5", backgroundcolor: "pink", hex: "#FFC0CB" },
+  { id: "div6", backgroundcolor: "black", hex: "#000000" },
+];
+function App() {
+  const [hex, setHex] = useState("#FF0000")
+  const [divs, setDivs] = useState(divovi)
+function renderDiv(div) {
+  return(
+    <div key={div.id} style={{ backgroundColor: div.backgroundcolor , width:"500px", height: "300px", alignItems:"center"}} onClick={()=> changeHex(div.id)}></div>
+  )
+}
+function changeHex(id) {
+  const currentDiv = divs.filter(div => div.id === id)
+  var obj = currentDiv.reduce(function(acc, cur, i) {
+    acc[i] = cur;
+    return acc;
+  }, {});
+  const newHex = obj[0].hex
+  setHex(newHex)
+}
   return (
     <div>
-      Hello world
+      <div className="container">{divs.map(renderDiv)}</div>
+      <div className="hex">{hex}</div>
     </div>
+    
   );
 }
-
-// Challenge 1
-function addTwo(num) {
-return num + 2
-}
-
-// To check if you've completed it, uncomment these console.logs!
-console.log(addTwo(3));
-console.log(addTwo(10));
-
-
-// Challenge 2
-function addS(word) {
-return word + "s"
-}
-
-// uncomment these to check your work
-console.log(addS('pizza'));
-console.log(addS('bagel'));
-
-
-// Challenge 3
-
-function multiplyByTwo(num) {
-  return num * 2
-}
-function map(array, callback) {
-  let noviArray = []
-array.forEach(x => noviArray.push(callback(x)))
-return noviArray
-}
-
-console.log(map([1, 2, 3], addTwo));
-console.log(map([1,2,3,4,5], multiplyByTwo)); //-> [2,4,6,8,10]
-
-
-// Challenge 4
-let alphabet = '';
-const letters = ['a', 'b', 'c', 'd'];
-forEach(letters, function(char) {
-  alphabet += char;
-});
-function forEach(array, callback) {
-array.forEach(x => callback(x))
-}
-console.log(alphabet);
-
-// Challenge 5
-function mapWith(array, callback) {
-
-}
-// Drugi zadatak
-
-function evenNumbers (array)  {
-  return array.filter(x => {return x % 2 == 0})
-}
-console.log(evenNumbers([1,2,3,4,5,6]));
-
-function bigStrings (array) {
-  return array.filter(x=> {return x.length>5})
-}
-console.log(bigStrings(["ivor","djerbez","ivi","jasmin"]));
-function checkActive (array) {
-  return array.filter(x=> {return x.isActive===true})
-}
-console.log(checkActive([{id:"Ivor", isActive:true}, {id:"Jasmin", isActive:false}, {id:"Emel", isActive:true}]));
-function sumAllNumbers(array) {
-  let sum = 0;
-  array.forEach(x => {sum+=x})
-  return sum;
-}
-console.log(sumAllNumbers([1,2,3,4,5]));
-function productAllNumbers(array) {
-  let sum = 1;
-  array.forEach(x => {sum*=x})
-  return sum;
-}
-console.log(productAllNumbers([1,2,3,4,5]));
-function concatStrings (array) {
-  return array.join(" ")
-}
-console.log(concatStrings(["Ivor","Đerbez","majstor"]));
-function averageNumber (array) {
-  let sum = 0;
-  array.forEach(x => {sum +=x})
-  let average = sum / array.length
-  return average
-}
-console.log(averageNumber([1,2,3,4]));
-function numberOfObjects (array) {
-  let newArray = array.filter(x=> {return x.isActive===true})
-  return newArray.length
-}
-console.log(numberOfObjects([{id:"Ivor", isActive:true}, {id:"Jasmin", isActive:false}, {id:"Emel", isActive:true}]));
-function maxNumber (array) {
-  return Math.max(...array)
-}
-console.log(maxNumber([1,2,3,4,5]))
-function minNumber (array) {
-  return Math.min(...array)
-}
-console.log(minNumber([1,2,3,4,5]))
 export default App;
